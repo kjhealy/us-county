@@ -16,6 +16,11 @@ library(RColorBrewer)
 
 theme_set(theme_minimal())
 
+## Make a "figures" subdirectory if one doesn't exist
+ifelse(!dir.exists(file.path("figures")),
+       dir.create(file.path("figures")),
+       FALSE)
+
 
 ## for theme_map
 ## devtools::source_gist("33baa3a79c5cfef0f6df")
@@ -76,10 +81,23 @@ us.counties.aea <- rbind(us.counties.aea, alaska, hawaii)
 ### Merge census county-level dataset with map data
 ###--------------------------------------------------
 
+state.data <- read.csv("data/census/state-data-statabs-2012.csv", header=TRUE)
+
+county.names <- read.csv("data/census/fips-by-state.csv", header=TRUE)
+
 county.data <- read.csv("data/census/DataSet.txt", header=TRUE)
 county.data$id <- as.character(county.data$fips)
 ind <- county.data$fips<10000
 county.data$id[ind] <- paste("0", county.data$id[ind], sep="")
+
+ind <- match(county.data$fips, county.names$fips)
+county.data$name <- county.names$name[ind]
+county.data$state <- county.names$state[ind]
+
+ind <- match(county.data$state, state.data$State.Abbr)
+county.data$region <- state.data$Region[ind]
+
+
 
 library(Hmisc)
 county.data$pop.dens <- with(county.data, PST045214/LND110210)
@@ -87,7 +105,7 @@ county.data$pop.dens <- cut2(county.data$pop.dens,
                              cuts = c(0, 10, 100, 1000, 10000))
 
 county.data$pct.black <- cut2(county.data$RHI225213,
-                              cuts = c(0, 2, 5, 10, 15, 20, 40, 60))
+                              cuts = c(0, 2, 5, 10, 15, 25, 50))
 
 
 co.map <- fortify(us.counties.aea, region="GEO_ID")
@@ -113,13 +131,20 @@ p1 <- p + geom_map(data=co.map,
                    color="white",
                    size=0.2)
 
-p2 <- p1 + scale_fill_brewer(palette="PuBu")
+p2 <- p1 + scale_fill_brewer(palette="PuBu",
+                             labels = c("0-10", "10-100", "100-1,000",
+                                        "1,000-10,000", ">10,000"))
 p2 <- p2 + coord_equal()
 p2 <- p2 + theme_map()
-p2 <- p2 + theme(legend.position="right") + labs(fill="Population\nDensity, 2014")
+p2 <- p2 + theme(legend.position="right") + labs(fill="Population per\nsquare mile")
+p2 <- p2 + ggtitle("US Population Density, 2014")
 p2
 
-
+ggsave("figures/us-pop-density-2014.png",
+       p2,
+       height=8,
+       width=12,
+       dpi=300)
 
 
 ### Percent Black
@@ -135,8 +160,47 @@ p1 <- p + geom_map(data=co.map,
                    color="white",
                    size=0.2)
 
-p2 <- p1 + scale_fill_brewer(palette="Oranges")
+p2 <- p1 + scale_fill_brewer(palette="Oranges",
+                             labels = c("<2", "2-5", "5-10",
+                                        "10-15", "15-25", "25-50", ">50"))
 p2 <- p2 + coord_equal()
 p2 <- p2 + theme_map()
-p2 <- p2 + theme(legend.position="right") + labs(fill="Percent\nBlack, 2013")
+p2 <- p2 + theme(legend.position="right") + labs(fill="Percent of\nPopulation, 2013")
+p2 <- p2 + ggtitle("US Population, Percent Black")
 p2
+
+ggsave("figures/us-pct-black-2013.png",
+       p2,
+       height=8,
+       width=12,
+       dpi=300)
+
+
+### --------------------------------------------------
+### Scatter plot
+### --------------------------------------------------
+
+p <- ggplot(county.data, aes(x=PST045214/LND110210,
+                             y=RHI225213,
+                             label=state,
+                             color=region))
+p2 <- p + geom_text(size=1.4) +
+    scale_x_continuous(trans=asinh_trans(),
+                       breaks=c(0, 10, 100,
+                                1000, 10000, 100000),
+                       labels=c("0", "10", "100",
+                                "1,000", "10,000", "100,000")) +
+    scale_color_manual(values=my.colors("rcb")) +
+    labs(x="County Population Density (People per Square Mile)",
+         y="Percent Black", color="Region") +
+    theme(legend.position="bottom") +
+    guides(color = guide_legend(override.aes = list(size=6))) +
+    ggtitle("Population Density and Percent Black by County, showing Region")
+
+p2
+
+ggsave("figures/us-density-v-pctblack-lab.png",
+       p2,
+       height=8,
+       width=12,
+       dpi=300)
