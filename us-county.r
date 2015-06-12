@@ -97,7 +97,8 @@ county.data$state <- county.names$state[ind]
 ind <- match(county.data$state, state.data$State.Abbr)
 county.data$region <- state.data$Region[ind]
 
-
+ind <- complete.cases(county.data)
+county.data <- county.data[ind,]
 
 library(Hmisc)
 county.data$pop.dens <- with(county.data, PST045214/LND110210)
