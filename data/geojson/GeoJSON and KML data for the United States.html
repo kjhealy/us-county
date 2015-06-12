@@ -1,0 +1,514 @@
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>GeoJSON and KML data for the United States</title>
+  <meta http-equiv='Content-Style-Type' content='text/css' />
+  <!--HTMLHeader--><style type='text/css'><!--
+  ul, ol, pre, dl, p { margin-top:0px; margin-bottom:0px; }
+  code.escaped { white-space: nowrap; }
+  .vspace { margin-top:1.33em; }
+  .indent { margin-left:40px; }
+  .outdent { margin-left:40px; text-indent:-40px; }
+  a.createlinktext { text-decoration:none; border-bottom:1px dotted gray; }
+  a.createlink { text-decoration:none; position:relative; top:-0.5em;
+    font-weight:bold; font-size:smaller; border-bottom:none; }
+  img { border:0px; }
+  
+span.anchor {
+	float: left;
+	font-size: 10px;
+	margin-left: -10px;
+	width: 10px;
+    position:relative; top:-0.1em;
+	text-align: center;
+}
+span.anchor a { text-decoration: none; }
+span.anchor a:hover { text-decoration: underline; }
+ol.toc { text-indent:-20px; list-style: none; }
+ol.toc ol.toc { text-indent:-40px; }
+div.tocfloat { font-size: smaller; margin-bottom: 10px;
+    border-top: 1px dotted #555555; border-bottom: 1px dotted #555555;
+    padding-top: 5px; padding-bottom: 5px; 
+    width: 38%; float: right; margin-left: 10px; clear: right;
+    margin-right:-13px; padding-right: 13px; padding-left: 13px;
+    background-color: #eeeeee; }
+div.toc { font-size: smaller; 
+    padding: 4px; border: 1px dotted #cccccc;
+    background: #f7f7f7;
+    margin-bottom: 10px; }
+.todosurround {
+	cursor: pointer;
+	display: inline-block;
+}
+
+span.todopoptip { 
+	display: none; 
+	background-color: #ffffcc; 
+}
+
+a span.todopoptip {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+a:hover span.todopoptip {
+	display: block; 
+	position: absolute;
+	margin-left: 30px;
+	font-size: smaller;
+	text-align: left;
+	padding: 5px;
+	border: 1px solid black;
+	color: black;
+}
+
+// .hotspot {color:#900; padding-bottom:1px; border-bottom:1px dotted #900; cursor:pointer}
+#tt {
+	position:absolute; 
+	display:block; 
+	// background:url(images/tt_left.gif) top left no-repeat;
+}
+#tttop {
+	display:block; 
+	height:5px; 
+	margin-left:5px; 
+	// background:url(images/tt_top.gif) top right no-repeat; 
+	overflow:hidden;
+}
+#ttcont {
+	display:block; 
+	padding:2px 12px 3px 7px; 
+	margin-left:5px; 
+	background:#666; 
+	color:#fff;
+}
+#ttbot {
+	display:block; 
+	height:5px; 
+	margin-left:5px; 
+	// background:url(images/tt_bottom.gif) top right no-repeat; 
+	overflow:hidden;
+}
+td.todolabel {
+	color: ;
+}
+.editconflict { color:green; 
+  font-style:italic; margin-top:1.33em; margin-bottom:1.33em; }
+
+  table.markup { border:2px dotted #ccf; width:90%; }
+  td.markup1, td.markup2 { padding-left:10px; padding-right:10px; }
+  table.vert td.markup1 { border-bottom:1px solid #ccf; }
+  table.horiz td.markup1 { width:23em; border-right:1px solid #ccf; }
+  table.markup caption { text-align:left; }
+  div.faq p, div.faq pre { margin-left:2em; }
+  div.faq p.question { margin:1em 0 0.75em 0; font-weight:bold; }
+  div.faqtoc div.faq * { display:none; }
+  div.faqtoc div.faq p.question 
+    { display:block; font-weight:normal; margin:0.5em 0 0.5em 20px; line-height:normal; }
+  div.faqtoc div.faq p.question * { display:inline; }
+   
+    .frame 
+      { border:1px solid #cccccc; padding:4px; background-color:#f9f9f9; }
+    .lfloat { float:left; margin-right:0.5em; }
+    .rfloat { float:right; margin-left:0.5em; }
+a.varlink { text-decoration:none; }
+
+--></style><script type="text/javascript">
+function toggle(obj) {
+    var elstyle = document.getElementById(obj).style;
+    var text    = document.getElementById(obj + "tog");
+    if (elstyle.display == 'none') {
+        elstyle.display = 'block';
+        text.innerHTML = "hide";
+    } else {
+        elstyle.display = 'none';
+        text.innerHTML = "show";
+    }
+}
+</script>
+  <link href='http://pmwiki.clst.org/pub/css/commentboxplus.css' rel='stylesheet' type='text/css' />
+<script type='text/javascript'>
+function get_html_translation_table(table, quote_style) {
+	// http://kevin.vanzonneveld.net
+	// +   original by: Philip Peterson
+	// +    revised by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+	// +   bugfixed by: noname
+	// %          note: It has been decided that we're not going to add global
+	// %          note: dependencies to php.js. Meaning the constants are not
+	// %          note: real constants, but strings instead. integers are also supported if someone
+	// %          note: chooses to create the constants themselves.
+	// %          note: Table from http://www.the-art-of-web.com/html/character-codes/
+	// *     example 1: get_html_translation_table('HTML_SPECIALCHARS');
+	// *     returns 1: {'"': '&quot;', '&': '&amp;', '<': '&lt;', '>': '&gt;'}
+	
+	var entities = {}, histogram = {}, decimal = 0, symbol = '';
+	var constMappingTable = {}, constMappingQuoteStyle = {};
+	var useTable = {}, useQuoteStyle = {};
+	
+	useTable      = (table ? table.toUpperCase() : 'HTML_SPECIALCHARS');
+	useQuoteStyle = (quote_style ? quote_style.toUpperCase() : 'ENT_COMPAT');
+	
+	// Translate arguments
+	constMappingTable[0]      = 'HTML_SPECIALCHARS';
+	constMappingTable[1]      = 'HTML_ENTITIES';
+	constMappingQuoteStyle[0] = 'ENT_NOQUOTES';
+	constMappingQuoteStyle[2] = 'ENT_COMPAT';
+	constMappingQuoteStyle[3] = 'ENT_QUOTES';
+	
+	// Map numbers to strings for compatibilty with PHP constants
+	if (!isNaN(useTable)) {
+		useTable = constMappingTable[useTable];
+	}
+	if (!isNaN(useQuoteStyle)) {
+		useQuoteStyle = constMappingQuoteStyle[useQuoteStyle];
+	}
+	
+	if (useQuoteStyle != 'ENT_NOQUOTES') {
+		entities['34'] = '&quot;';
+	}
+	
+	if (useQuoteStyle == 'ENT_QUOTES') {
+		entities['39'] = '&#039;';
+	}
+	
+	if (useTable == 'HTML_SPECIALCHARS') {
+		// ascii decimals for better compatibility
+		entities['38'] = '&amp;';
+		entities['60'] = '&lt;';
+		entities['62'] = '&gt;';
+	} else if (useTable == 'HTML_ENTITIES') {
+		// ascii decimals for better compatibility
+	  entities['38']  = '&amp;';
+	  entities['60']  = '&lt;';
+	  entities['62']  = '&gt;';
+	  entities['160'] = '&nbsp;';
+	  entities['161'] = '&iexcl;';
+	  entities['162'] = '&cent;';
+	  entities['163'] = '&pound;';
+	  entities['164'] = '&curren;';
+	  entities['165'] = '&yen;';
+	  entities['166'] = '&brvbar;';
+	  entities['167'] = '&sect;';
+	  entities['168'] = '&uml;';
+	  entities['169'] = '&copy;';
+	  entities['170'] = '&ordf;';
+	  entities['171'] = '&laquo;';
+	  entities['172'] = '&not;';
+	  entities['173'] = '&shy;';
+	  entities['174'] = '&reg;';
+	  entities['175'] = '&macr;';
+	  entities['176'] = '&deg;';
+	  entities['177'] = '&plusmn;';
+	  entities['178'] = '&sup2;';
+	  entities['179'] = '&sup3;';
+	  entities['180'] = '&acute;';
+	  entities['181'] = '&micro;';
+	  entities['182'] = '&para;';
+	  entities['183'] = '&middot;';
+	  entities['184'] = '&cedil;';
+	  entities['185'] = '&sup1;';
+	  entities['186'] = '&ordm;';
+	  entities['187'] = '&raquo;';
+	  entities['188'] = '&frac14;';
+	  entities['189'] = '&frac12;';
+	  entities['190'] = '&frac34;';
+	  entities['191'] = '&iquest;';
+	  entities['192'] = '&Agrave;';
+	  entities['193'] = '&Aacute;';
+	  entities['194'] = '&Acirc;';
+	  entities['195'] = '&Atilde;';
+	  entities['196'] = '&Auml;';
+	  entities['197'] = '&Aring;';
+	  entities['198'] = '&AElig;';
+	  entities['199'] = '&Ccedil;';
+	  entities['200'] = '&Egrave;';
+	  entities['201'] = '&Eacute;';
+	  entities['202'] = '&Ecirc;';
+	  entities['203'] = '&Euml;';
+	  entities['204'] = '&Igrave;';
+	  entities['205'] = '&Iacute;';
+	  entities['206'] = '&Icirc;';
+	  entities['207'] = '&Iuml;';
+	  entities['208'] = '&ETH;';
+	  entities['209'] = '&Ntilde;';
+	  entities['210'] = '&Ograve;';
+	  entities['211'] = '&Oacute;';
+	  entities['212'] = '&Ocirc;';
+	  entities['213'] = '&Otilde;';
+	  entities['214'] = '&Ouml;';
+	  entities['215'] = '&times;';
+	  entities['216'] = '&Oslash;';
+	  entities['217'] = '&Ugrave;';
+	  entities['218'] = '&Uacute;';
+	  entities['219'] = '&Ucirc;';
+	  entities['220'] = '&Uuml;';
+	  entities['221'] = '&Yacute;';
+	  entities['222'] = '&THORN;';
+	  entities['223'] = '&szlig;';
+	  entities['224'] = '&agrave;';
+	  entities['225'] = '&aacute;';
+	  entities['226'] = '&acirc;';
+	  entities['227'] = '&atilde;';
+	  entities['228'] = '&auml;';
+	  entities['229'] = '&aring;';
+	  entities['230'] = '&aelig;';
+	  entities['231'] = '&ccedil;';
+	  entities['232'] = '&egrave;';
+	  entities['233'] = '&eacute;';
+	  entities['234'] = '&ecirc;';
+	  entities['235'] = '&euml;';
+	  entities['236'] = '&igrave;';
+	  entities['237'] = '&iacute;';
+	  entities['238'] = '&icirc;';
+	  entities['239'] = '&iuml;';
+	  entities['240'] = '&eth;';
+	  entities['241'] = '&ntilde;';
+	  entities['242'] = '&ograve;';
+	  entities['243'] = '&oacute;';
+	  entities['244'] = '&ocirc;';
+	  entities['245'] = '&otilde;';
+	  entities['246'] = '&ouml;';
+	  entities['247'] = '&divide;';
+	  entities['248'] = '&oslash;';
+	  entities['249'] = '&ugrave;';
+	  entities['250'] = '&uacute;';
+	  entities['251'] = '&ucirc;';
+	  entities['252'] = '&uuml;';
+	  entities['253'] = '&yacute;';
+	  entities['254'] = '&thorn;';
+	  entities['255'] = '&yuml;';
+	} else {
+		throw Error("Table: "+useTable+' not supported');
+		return false;
+	}
+	
+	// ascii decimals to real symbols
+	for (decimal in entities) {
+		symbol = String.fromCharCode(decimal)
+		histogram[symbol] = entities[decimal];
+	}
+	
+	return histogram;
+}
+
+function html_entity_decode( string, quote_style ) {
+	// http://kevin.vanzonneveld.net
+	// +   original by: john (http://www.jd-tech.net)
+	// +      input by: ger
+	// +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+	// +    revised by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+	// +   bugfixed by: Onno Marsman
+	// +   improved by: marc andreu
+	// +    revised by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+	// -    depends on: get_html_translation_table
+	// *     example 1: html_entity_decode('Kevin &amp; van Zonneveld');
+	// *     returns 1: 'Kevin & van Zonneveld'
+	// *     example 2: html_entity_decode('&amp;lt;');
+	// *     returns 2: '&lt;'
+	
+	var histogram = {}, symbol = '', tmp_str = '', entity = '';
+	tmp_str = string.toString();
+	
+	if (false === (histogram = get_html_translation_table('HTML_ENTITIES', quote_style))) {
+		return false;
+	}
+	
+	// &amp; must be the last character when decoding!
+	delete(histogram['&']);
+	histogram['&'] = '&amp;';
+	
+	for (symbol in histogram) {
+		entity = histogram[symbol];
+		tmp_str = tmp_str.split(entity).join(symbol);
+	}
+	
+	return tmp_str;
+}
+
+var tooltip=function(){
+	var id = 'tt';
+	var top = 3;
+	var left = 3;
+	var maxw = 300;
+	var speed = 10;
+	var timer = 20;
+	var endalpha = 95;
+	var alpha = 0;
+	var tt,t,c,b,h;
+	var ie = document.all ? true : false;
+	return{
+		show:function(v,w){
+			if(tt == null){
+				tt = document.createElement('div');
+				tt.setAttribute('id',id);
+				t = document.createElement('div');
+				t.setAttribute('id',id + 'top');
+				c = document.createElement('div');
+				c.setAttribute('id',id + 'cont');
+				b = document.createElement('div');
+				b.setAttribute('id',id + 'bot');
+				tt.appendChild(t);
+				tt.appendChild(c);
+				tt.appendChild(b);
+				document.body.appendChild(tt);
+				tt.style.opacity = 0;
+				tt.style.filter = 'alpha(opacity=0)';
+				document.onmousemove = this.pos;
+			}
+			tt.style.display = 'block';
+			c.innerHTML = html_entity_decode(v,'ENT_QUOTES');
+			tt.style.width = w ? w + 'px' : 'auto';
+			if(!w && ie){
+				t.style.display = 'none';
+				b.style.display = 'none';
+				tt.style.width = tt.offsetWidth;
+				t.style.display = 'block';
+				b.style.display = 'block';
+			}
+			if(tt.offsetWidth > maxw){tt.style.width = maxw + 'px'}
+			h = parseInt(tt.offsetHeight) + top;
+			clearInterval(tt.timer);
+			tt.timer = setInterval(function(){tooltip.fade(1)},timer);
+		},
+		pos:function(e){
+			var u = ie ? event.clientY + document.documentElement.scrollTop : e.pageY;
+			var l = ie ? event.clientX + document.documentElement.scrollLeft : e.pageX;
+			tt.style.top = (u - h) + 'px';
+			tt.style.left = (l + left) + 'px';
+		},
+		fade:function(d){
+			var a = alpha;
+			if((a != endalpha && d == 1) || (a != 0 && d == -1)){
+				var i = speed;
+				if(endalpha - a < speed && d == 1){
+					i = endalpha - a;
+				}else if(alpha < speed && d == -1){
+					i = a;
+				}
+				alpha = a + (i * d);
+				tt.style.opacity = alpha * .01;
+				tt.style.filter = 'alpha(opacity=' + alpha + ')';
+			}else{
+				clearInterval(tt.timer);
+				if(d == -1){tt.style.display = 'none'}
+			}
+		},
+		hide:function(){
+			clearInterval(tt.timer);
+			tt.timer = setInterval(function(){tooltip.fade(-1)},timer);
+		}
+	};
+}();
+
+</script>
+  <meta name='robots' content='index,follow' />
+
+<!--
+/*
+ * MyFonts Webfont Build ID 754584, 2011-04-10T13:01:35-0400
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: Gibson Family
+ * URL: http://new.myfonts.com/fonts/canadatype/gibson
+ * Foundry: Canada Type
+ * Copyright: Copyright &#x00A9; 2011 Rod McDonald. Published by Canada Type. All rights reserved.
+ * License: http://www.myfonts.com/viewlicense?1056
+ * Licensed pageviews: 10,000/month
+ * CSS font-family: Gibson
+ * 
+ * (c) 2011 Bitstream, Inc
+*/
+-->
+  <link rel="stylesheet" type="text/css" href="http://eric.clst.org/stuff/font/MyFontsGibson.css">
+  <link rel='stylesheet' href='http://pmwiki.clst.org/pub/skins/eric/eric.css' type='text/css' />
+  <!-- this style declaration must stay in the tmpl file -->
+  <style type='text/css'>
+   #title { background-image: url("erictitleBackground"); }
+	.difftype { clear:none; }
+	.diffrestore { clear:none; }
+  </style>
+</head>
+<body>
+<!--<script type="text/javascript" src="http://shots.snap.com/ss/1dd2290f9987f84c9e18a8179aea0dfc/snap_shots.js"></script>-->
+<!--PageHeaderFmt-->
+<!--PageTitleFmt-->
+<div id="navbar"> 
+	<p><a class='urllink' href='http://eric.clst.org' rel='nofollow'>Eric</a>
+/
+<a class='wikilink' href='http://eric.clst.org/Main/HomePage'>Main</a>
+/
+<a class='wikilink' href='http://eric.clst.org/Site/Site'>Site</a>
+/
+<a class='wikilink' href='http://eric.clst.org/PmWiki/PmWiki'>PmWiki</a>
+</p>
+
+</div>
+<div id="masthead">
+         <div class='pagetitle'>GeoJSON and KML data for the United States <span class='titlenote'></span></div>
+</div>
+<!--PageLeftFmt-->
+<div id="sidebar"> 
+	<div><img src='http://eric.clst.org/wupl/Stuff/earth.jpg' alt='' title='' /></div>
+
+</div>
+<div id="content">
+<!--PageText-->
+<div id='wikitext'>
+<p class='vspace'>I had a devil of a time finding simple GeoJSON and KML boundary files for US counties and states. Eventually I realized that I could get shapefiles from the <a class='urllink' href='https://www.census.gov/geo/maps-data/data/tiger-cart-boundary.html' rel='nofollow'>United States Census Cartographic Boundary Files</a> and convert them to GeoJSON and KML formats using the <a class='urllink' href='http://converter.mygeodata.eu/vector' rel='nofollow'>MyGeoData vector converter</a>.
+</p>
+<p class='vspace'>The result is the following set of boundary files. Since copyright protection is not available for any work of the United States Government, you should all be free to use for any purpose. The Census Bureau does <a class='urllink' href='https://ask.census.gov/faq.php?id=5000&amp;faqId=431' rel='nofollow'>request</a> to be cited as a source.
+</p>
+<p class='vspace'>These files are available in various resolutions and are all derived from the 2010 census. The 500k files are the most detailed, but also the largest. The 20m files are the smallest, but at the cost of some dramatic simplification. The 5m files fall somewhere between the other two.
+</p>
+<div class='vspace'></div><table width='100%'><tr class='ind1'><td  align='left'>Features</td><td  align='center'>500k</td><td  align='center'>5m</td><td  align='center'>20m</td></tr>
+<tr class='ind2'><td  align='left'>US Outline</td><td  align='center'><a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_outline_500k.zip' rel='nofollow'>SHP</a>, <a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_outline_500k.kml' rel='nofollow'>KML</a>, <a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_outline_500k.json' rel='nofollow'>GeoJSON</a></td><td  align='center'><a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_outline_5m.zip' rel='nofollow'>SHP</a>, <a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_outline_5m.kml' rel='nofollow'>KML</a>, <a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_outline_5m.json' rel='nofollow'>GeoJSON</a></td><td  align='center'><a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_outline_20m.zip' rel='nofollow'>SHP</a>, <a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_outline_20m.kml' rel='nofollow'>KML</a>, <a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_outline_20m.json' rel='nofollow'>GeoJSON</a></td></tr>
+<tr class='ind1'><td  align='left'>US States</td><td  align='center'><a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_040_00_500k.zip' rel='nofollow'>SHP</a>, <a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_040_00_500k.kml' rel='nofollow'>KML</a>, <a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_040_00_500k.json' rel='nofollow'>GeoJSON</a></td><td  align='center'><a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_040_00_5m.zip' rel='nofollow'>SHP</a>, <a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_040_00_5m.kml' rel='nofollow'>KML</a>, <a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_040_00_5m.json' rel='nofollow'>GeoJSON</a></td><td  align='center'><a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_040_00_20m.zip' rel='nofollow'>SHP</a>, <a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_040_00_20m.kml' rel='nofollow'>KML</a>, <a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_040_00_20m.json' rel='nofollow'>GeoJSON</a></td></tr>
+<tr class='ind2'><td  align='left'>US Counties</td><td  align='center'><a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_050_00_500k.zip' rel='nofollow'>SHP</a>, <a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_050_00_500k.kml' rel='nofollow'>KML</a>, <a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_050_00_500k.json' rel='nofollow'>GeoJSON</a></td><td  align='center'><a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_050_00_5m.zip' rel='nofollow'>SHP</a>, <a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_050_00_5m.kml' rel='nofollow'>KML</a>, <a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_050_00_5m.json' rel='nofollow'>GeoJSON</a></td><td  align='center'><a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_050_00_20m.zip' rel='nofollow'>SHP</a>, <a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_050_00_20m.kml' rel='nofollow'>KML</a>, <a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_050_00_20m.json' rel='nofollow'>GeoJSON</a></td></tr>
+<tr class='ind1'><td  align='left'>US Congressional (see note)</td><td >&nbsp;</td><td  align='center'><a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_500_11_5m.zip' rel='nofollow'>SHP</a>, <a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_500_11_5m.kml' rel='nofollow'>KML</a>, <a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_500_11_5m.json' rel='nofollow'>GeoJSON</a></td><td  align='center'><a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_500_11_20m.zip' rel='nofollow'>SHP</a>, <a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_500_11_20m.kml' rel='nofollow'>KML</a>, <a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_500_11_20m.json' rel='nofollow'>GeoJSON</a></td></tr>
+</table>
+<div class='vspace'></div><div  style='background-color: #fdcccc; padding-left: 2px; padding-right: 2px; border: 1px dotted red;' > 
+<p>Note, I received the following observation from a user in November 2013, so stay alert. I make no promises about the accuracy of these files, I just used the conversion tools listed above.
+</p>
+<p class='vspace'><strong>Was using these, gratefully, but just noticed that California districts are not accurate for 113th Congress. For instance, in <a class='urllink' href='http://eric.clst.org/wupl/Stuff/gz_2010_us_500_11_20m.json' rel='nofollow'>gz_2010_us_500_11_20m.json</a> look in the northern part of the state. Not sure of accuracy other states. –  MR</strong>
+</p>
+<p class='vspace'>I believe the issue is that congressional redistricting from the census is not fully reflected in the 2010 files. If you are depending on congressional boundaries, be warned!
+</p></div>
+<p class='vspace'>If the files you need are not here, don't be afraid of going to the <a class='urllink' href='https://www.census.gov/geo/maps-data/data/tiger-cart-boundary.html' rel='nofollow'>source</a> and <a class='urllink' href='http://converter.mygeodata.eu/vector' rel='nofollow'>converting</a> them yourself!
+</p>
+</div>
+
+<!--PageRightFmt-->
+</div>
+<!--PageFooterFmt-->
+<div id="signature">
+Eric Celeste / Saint Paul, Minnesota / 651.323.2009 / <a href="mailto:efc@clst.org">efc@clst.org</a>
+</div>
+<div id="footer">
+      <a href='http://eric.clst.org/Stuff/USGeoJSON?action=edit' accesskey='e'>&nbsp;E&nbsp;</a>
+      <a href='http://eric.clst.org/Stuff/USGeoJSON?action=upload' accesskey='a'>&nbsp;A&nbsp;</a>
+      <a href='http://eric.clst.org/Stuff/USGeoJSON?action=diff' accesskey='h'>&nbsp;H&nbsp;</a>
+      <a href='http://eric.clst.org/Stuff/RecentChanges' accesskey='r'>&nbsp;R&nbsp;</a>
+      <a href='http://eric.clst.org/Stuff/USGeoJSONSidebar?action=edit' accesskey='s'>&nbsp;S&nbsp;</a>
+      <a href='http://eric.clst.org/PmWiki/DocumentationIndex' accesskey='?'>&nbsp;?&nbsp;</a>
+</div> <!-- end footer -->
+<!--/PageFooterFmt-->
+<!--GoogleAnalytics-->
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-503237-6";
+urchinTracker();
+</script>
+<!--HTMLFooter-->
+</body>
+</html>
