@@ -48,7 +48,8 @@ theme_map <- function(base_size=9, base_family="") {
 ## Converted to geojson format
 ## http://eric.clst.org/Stuff/USGeoJSON
 ## Read U.S. counties moderately-simplified GeoJSON file
-us.counties <- readOGR(dsn="data/geojson/gz_2010_us_050_00_5m.json", layer="OGRGeoJSON")
+us.counties <- readOGR(dsn="data/geojson/gz_2010_us_050_00_5m.json",
+                       layer="OGRGeoJSON")
 
 # Convert it to Albers equal area
 us.counties.aea <- spTransform(us.counties,
@@ -94,11 +95,9 @@ ind <- match(county.data$fips, county.names$fips)
 county.data$name <- county.names$name[ind]
 county.data$state <- county.names$state[ind]
 
-ind <- match(county.data$state, state.data$State.Abbr)
-county.data$region <- state.data$Region[ind]
-
 ind <- complete.cases(county.data)
 county.data <- county.data[ind,]
+
 
 library(Hmisc)
 county.data$pop.dens <- with(county.data, PST045214/LND110210)
@@ -180,6 +179,10 @@ ggsave("figures/us-pct-black-2013.png",
 ### --------------------------------------------------
 ### Scatter plot
 ### --------------------------------------------------
+
+ind <- match(county.data$state, state.data$State.Abbr)
+county.data$region <- state.data$Region[ind]
+
 
 p <- ggplot(county.data, aes(x=PST045214/LND110210,
                              y=RHI225213,
