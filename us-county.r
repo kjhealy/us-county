@@ -90,13 +90,18 @@ county.data <- read.csv("data/census/DataSet.txt", header=TRUE)
 county.data$id <- as.character(county.data$fips)
 ind <- county.data$fips<10000
 county.data$id[ind] <- paste("0", county.data$id[ind], sep="")
+county.data$id[county.data$id=="00"] <- "0"
 
 ind <- match(county.data$fips, county.names$fips)
 county.data$name <- county.names$name[ind]
 county.data$state <- county.names$state[ind]
 
-ind <- complete.cases(county.data)
-county.data <- county.data[ind,]
+ind <- match(state.data$fips, county.data$fips)
+county.data$state[ind] <- state.data$State.Abbr
+
+## Add state names as levels of county name, so states have FIPS too
+levels(county.data$name) <- c(levels(county.data$name), levels(state.data$State))
+county.data$name[ind] <- state.data$State
 
 
 library(Hmisc)
