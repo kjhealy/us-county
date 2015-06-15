@@ -104,6 +104,12 @@ levels(county.data$name) <- c(levels(county.data$name), levels(state.data$State)
 county.data$name[ind] <- state.data$State
 
 
+### Add census region. Don't call the variable "region" because that's
+### already reserved by the map object
+ind <- match(county.data$state, state.data$State.Abbr)
+county.data$census.region <- state.data$Region[ind]
+
+
 library(Hmisc)
 county.data$pop.dens <- with(county.data, PST045214/LND110210)
 county.data$pop.dens <- cut2(county.data$pop.dens,
@@ -185,14 +191,10 @@ ggsave("figures/us-pct-black-2013.png",
 ### Scatter plot
 ### --------------------------------------------------
 
-ind <- match(county.data$state, state.data$State.Abbr)
-county.data$region <- state.data$Region[ind]
-
-
 p <- ggplot(county.data, aes(x=PST045214/LND110210,
                              y=RHI225213,
                              label=state,
-                             color=region))
+                             color=census.region))
 p2 <- p + geom_text(size=1.4) +
     scale_x_continuous(trans=asinh_trans(),
                        breaks=c(0, 10, 100,
