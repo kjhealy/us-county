@@ -129,7 +129,7 @@ co.map <- merge(co.map, county.data, by="id")
 ### Make some maps
 ###--------------------------------------------------
 
-### Population Density
+### Population Density, reverse coded
 p <- ggplot(data=co.map, aes(x=long, y=lat, group=group))
 
 p1 <- p + geom_map(data=co.map,
@@ -142,9 +142,14 @@ p1 <- p + geom_map(data=co.map,
                    color="white",
                    size=0.2)
 
-p2 <- p1 + scale_fill_brewer(palette="PuBu",
-                             labels = c("0-10", "10-100", "100-1,000",
+vals <- c("#882F0D", "#FB8E46", "#FED3AE", "#FFEACD", "#FEF7ED")
+
+
+p2 <- p1 + scale_fill_manual(values = vals,
+                               labels = c("0-10", "10-100", "100-1,000",
                                         "1,000-10,000", ">10,000"))
+
+
 p2 <- p2 + coord_equal()
 p2 <- p2 + theme_map()
 p2 <- p2 + theme(legend.position="right") + labs(fill="Population per\nsquare mile")
