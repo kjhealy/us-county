@@ -87,7 +87,9 @@ state.data <- read.csv("data/census/state-data-statabs-2012.csv", header=TRUE)
 county.names <- read.csv("data/census/fips-by-state.csv", header=TRUE)
 
 county.data <- read.csv("data/census/DataSet.txt", header=TRUE)
+
 county.data$id <- as.character(county.data$fips)
+
 ind <- county.data$fips<10000
 county.data$id[ind] <- paste("0", county.data$id[ind], sep="")
 county.data$id[county.data$id=="00"] <- "0"
@@ -156,7 +158,7 @@ p2 <- p2 + theme(legend.position="right") + labs(fill="Population per\nsquare mi
 p2 <- p2 + ggtitle("US Population Density, 2014")
 p2
 
-ggsave("figures/us-pop-density-2014.png",
+ggsave("figures/us-pop-density-reverse-coded-2014.png",
        p2,
        height=8,
        width=12,
