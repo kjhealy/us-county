@@ -44,6 +44,7 @@ theme_map <- function(base_size=9, base_family="") {
 
 ## US Census Shapefiles
 ## https://www.census.gov/geo/maps-data/data/cbf/cbf_counties.html
+## See also http://eric.clst.org/Stuff/USGeoJSON
 
 ## Converted to geojson format
 ## http://eric.clst.org/Stuff/USGeoJSON
