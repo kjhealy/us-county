@@ -6,7 +6,7 @@ library(RColorBrewer)
 library(ggplot2)
 library(stringr)
 library(scales)
-library(RColorBrewer)
+library(broom)
 
 ###--------------------------------------------------
 ### Set up the Maps.
@@ -35,7 +35,7 @@ theme_map <- function(base_size=9, base_family="") {
           panel.background=element_blank(),
           panel.border=element_blank(),
           panel.grid=element_blank(),
-          panel.margin=unit(0, "lines"),
+          panel.spacing=unit(0, "lines"),
           plot.background=element_blank(),
           legend.justification = c(0,0),
           legend.position = c(0,0)
@@ -76,6 +76,19 @@ proj4string(hawaii) <- proj4string(us.counties.aea)
 # between texas and florida via similar methods to the ones we just used
 us.counties.aea <- us.counties.aea[!us.counties.aea$STATE %in% c("02", "15", "72"),]
 us.counties.aea <- rbind(us.counties.aea, alaska, hawaii)
+
+
+
+p <- ggplot(data=co.map, aes(x=long, y=lat, group=group))
+p1 <- p + geom_map(data = co.map,
+                   map = co.map,
+                   aes(map_id=id,
+                       x=long,
+                       y=lat,
+                       group=group,
+                       fill=pop.dens),
+                   color="white",
+                   size=0.2)
 
 
 ###--------------------------------------------------
@@ -119,9 +132,14 @@ county.data$pct.black <- cut2(county.data$RHI225213,
                               cuts = c(0, 2, 5, 10, 15, 25, 50))
 
 
-co.map <- fortify(us.counties.aea, region="GEO_ID")
+## Tidy the spatial object into a data fram ggplot can use
+co.map <- tidy(us.counties.aea, region="GEO_ID")
+
+## Clean up the id label by stripping out the 'This is a map of the
+## US' prefix
 co.map$id <- str_replace(co.map$id, "0500000US", "")
 
+## Merge the map data frame with the county-level census data, by id.
 co.map <- merge(co.map, county.data, by="id")
 
 
@@ -132,7 +150,7 @@ co.map <- merge(co.map, county.data, by="id")
 ### Population Density
 p <- ggplot(data=co.map, aes(x=long, y=lat, group=group))
 
-p1 <- p + geom_map(data=co.map,
+p1 <- p + geom_map(data = co.map,
                    map = co.map,
                    aes(map_id=id,
                        x=long,
@@ -145,10 +163,11 @@ p1 <- p + geom_map(data=co.map,
 p2 <- p1 + scale_fill_brewer(palette="PuBu",
                              labels = c("0-10", "10-100", "100-1,000",
                                         "1,000-10,000", ">10,000"))
+
 p2 <- p2 + coord_equal()
 p2 <- p2 + theme_map()
 p2 <- p2 + theme(legend.position="right") + labs(fill="Population per\nsquare mile")
-p2 <- p2 + ggtitle("US Population Density, 2014")
+p2 <- p2 + ggtitle("Population Density, 2014")
 p2
 
 ggsave("figures/us-pop-density-2014.png",
