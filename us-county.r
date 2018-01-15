@@ -169,9 +169,9 @@ co_map <- left_join(co_map, county_data, by="id")
 county_data <- county_data %>% janitor::clean_names()
 
 co2 <- county_data %>% dplyr::select(id, name, state, census_region,
-                             pop_dens, pop_dens4, pop_dens6, pct_black, pst045214,
-                             sex255213, rhi125213, rhi225213,
-                             lfe305213, lnd110210, inc110213, su_gun4, su_gun6)
+                             pop_dens, pop_dens_4, pop_dens_6, pct_black, pst_045214,
+                             sex_255213, rhi_125213, rhi_225213,
+                             lfe_305213, lnd_110210, inc_110213, su_gun_4, su_gun_6)
 
 colnames(co2) <- c("id", "name", "state", "census_region", "pop_dens", "pop_dens4",
                    "pop_dens6", "pct_black", "pop", "female", "white", "black",
